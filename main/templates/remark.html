@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <a href="{% url 'index' %}" class="back-button">&#8249;</a>
+    <h1>Someone's been Naughty today</h1>
+    <form method="POST" action="/main/remark/">
+        {% csrf_token %}
+        {% for field in form %}
+        <div style="margin-bottom: 10px;background: #e83525;">{{ field.errors }}</div>
+        <div class="form-group">
+            {{ field.label_tag }} 
+            {{ field }}
+        </div>
+        {% endfor %}
+        <button type="submit">Create Account</button>
+    </form>
+</div>
+
+</body>
+</html>

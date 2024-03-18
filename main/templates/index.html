@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naughty Girls List</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<script>
+    function closeBox() {
+        var box = document.querySelector('.box');
+        box.style.display = 'none';
+    }
+    function search(event) {
+        if (event.keyCode === 13) { // 13 is the key code for Enter
+            var query = document.getElementById("searchInput").value;
+            // You can perform your search action here, for example redirecting to a search results page
+            window.location.href = "{% url 'index' %}?query=" + query;
+        }
+    }
+</script>
+
+<div class="container">
+    <div class="top-bar">
+        <input type="text" class="search-bar" id="searchInput" placeholder="Find your bitch." onkeydown="search(event)">
+        <a href="{% url 'remark' %}"><img class="add-btn" src="{% static 'add.jpeg' %}" alt=""></a>
+    </div>
+    {% for user in users %}
+        <div style="text-align: center; background-color: #E5E54D; margin-bottom: 10px;">
+            <a href="{% url 'profile' username=user.username %}"><span style="color: #e83525; ">#{{ user.username }}#</span></a>
+        </div>
+    {% endfor %}
+    <div class="box">
+        <div class="box-header">
+          <h2 class="box-title">Important Message</h2>
+          <button class="exit-button" onclick="closeBox()">X</button>
+        </div>
+        <div class="box-message">
+          <p><b>if your friend is being a bitch, you got to report them publicly on the naughty girls list. you create your friends profile (kinda like a hashtag) and everyone can rat on them.</b> </p>
+          <h2 class="box-title"><a style="color: #e83525;" href="https://youtu.be/dQw4w9WgXcQ?si=XnQinFYugHGNCiT4" blank_>Dabble your chaos</a></h2>
+        </div>
+      </div>      
+    <div class="name-list">
+        {% for user, post in users_and_posts %}
+            <div class="name-item">
+                <div class="name-content">
+                    <span class="name-number">{{ user.downvote }}</span>
+                    <div class="dislike-icon">🖕🏻</div>
+                    <a href="{% url 'profile' username=user.username %}"><span style="color: #e83525;">#{{ user.username}}#</span></a>
+                    <span>{{ post.content }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>    
+    </div>
+</body>
+</html>
