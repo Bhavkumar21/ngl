@@ -12,8 +12,11 @@
 <div class="container">
     <a href="{% url 'index' %}" class="back-button">&#8249;</a>
     <h1>Someone's been Naughty today</h1>
-    <form method="POST" action="/main/remark/">
+    <form method="POST" action="/remark/">
         {% csrf_token %}
+        {% if error %}
+        <div style="margin-bottom: 10px;background: #e83525;">{{ error }}</div>
+        {% endif %}
         {% for field in form %}
         <div style="margin-bottom: 10px;background: #e83525;">{{ field.errors }}</div>
         <div class="form-group">

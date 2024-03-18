@@ -27,8 +27,9 @@ def remark(request):
         form = UserForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            # if User.objects.filter(username = username).first():
-            #     form.add_error(form.username, "This username is already taken")
+            print(username)
+            if User.objects.filter(username = username).first():
+                return render(request, 'remark.html', {'form': form, 'error':'duplicate usernames'})
             fullname = form.cleaned_data['fullname']
             age = form.cleaned_data['age']
             identifier = form.cleaned_data['identifier']

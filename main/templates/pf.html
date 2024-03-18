@@ -30,7 +30,7 @@
         <span>{{user.downvote}}</span>🖕
     </div>
     <div class="naughty-reason">
-        <form method="POST" action="/main/profile/{{user.username}}">
+        <form method="POST" action="/profile/{{user.username}}">
             <h2>Why they is naughty</h2>
             {% csrf_token %}
             {{form}}
