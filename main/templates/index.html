@@ -30,7 +30,7 @@
     </div>
     {% for user in users %}
         <div style="text-align: center; background-color: #E5E54D; margin-bottom: 10px;">
-            <a href="{% url 'profile' username=user.username %}"><span style="color: #e83525; ">#{{ user.username }}#</span></a>
+            <a href="{% url 'profile' username=user.username %}"><span style="color: #e83525; ">{{ user.fullname }} ({{ user.age }})----#{{ user.username }}#</span></a>
         </div>
     {% endfor %}
     <div class="box">

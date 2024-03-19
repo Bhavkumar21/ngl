@@ -12,12 +12,12 @@ def index(request):
 
     if 'query' in request.GET:
         query = request.GET.get('query')
-        user = User.objects.filter(username=query).first()
-        users = User.objects.filter(username__icontains=query)
+        user = User.objects.filter(fullname=query).first()
+        users = User.objects.filter(fullname__icontains=query)
         if user:
             return redirect('profile', username=user.username)
         else:
-            users = User.objects.filter(username__icontains=query)
+            users = User.objects.filter(fullname__icontains=query)
             return render(request, 'index.html', {'users_and_posts': users_and_posts, 'users': users})
 
     return render(request, 'index.html', {'users_and_posts': users_and_posts})
@@ -27,7 +27,6 @@ def remark(request):
         form = UserForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            print(username)
             if User.objects.filter(username = username).first():
                 return render(request, 'remark.html', {'form': form, 'error':'duplicate usernames'})
             fullname = form.cleaned_data['fullname']
@@ -51,5 +50,5 @@ def profile(request, username):
             return redirect('profile', username=username)
     else:
         form = PostForm()
-    return render(request, 'pf.html', {'user': user, 'posts': Post.objects.filter(user=user), 'form': form })
+    return render(request, 'pf.html', {'user': user, 'posts': Post.objects.filter(user=user).order_by('-created_at'), 'form': form })
 
